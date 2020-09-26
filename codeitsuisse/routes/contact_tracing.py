@@ -12,11 +12,12 @@ def evaluate():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     
-    data_dict = data.loads(x)
+    result = []
 
-
+    for test_case in data:
+        result.append(test_case)
     
-    logging.info("My result :{}".format(data_dict))
+    logging.info("My result :{}".format(result))
     return json.dumps(result)
 
 
