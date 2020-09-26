@@ -14,7 +14,7 @@ def evaluate_inventory_management():
 
     results = []
     for test_case in data: 
-        results = inventory_manangement(test_case)
+        results.append(inventory_manangement(test_case))
     logging.info("result :{}".format(results))
 
     return json.dumps(results)
