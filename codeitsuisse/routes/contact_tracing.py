@@ -40,27 +40,54 @@ def contact_trace(test_case): #input is dictionary
 
 
     #map among clusters and origin
+    # for name, genome in clusters.items():
+    #     if name == origin_name:
+    #         continue
+    #     min_nodes = []
+    #     for name_other, genome_other in clusters.items():
+    #         min_diff = 99999999
+    #         dist_dict = {} #format is name: [dist, non-silent]
+    #         if name != name_other:
+    #             diff_genome, non_silent = compare_genome(genome, genome_other)
+    #             # print('clusters')
+    #             # print(diff_genome, non_silent)
+    #             dist_dict[name_other] = [diff_genome, non_silent]
+    #             if diff_genome <= min_diff and diff_genome != 0:
+    #                 min_diff = diff_genome
+    #                 # min_nodes.append([name_other, non_silent])
+
+    #     # print(dist_dict)
+    #     for dist_name, details in dist_dict.items():
+    #         if details[0] == min_diff:
+    #             min_nodes.append([dist_name, details[1]])
+    #     graph_map[name] = min_nodes
+
     for name, genome in clusters.items():
         if name == origin_name:
             continue
         min_nodes = []
+        # print(name)
+        min_diff = 99999999
+        dist_dict = {} #format is name: [dist, non-silent]
         for name_other, genome_other in clusters.items():
-            min_diff = 99999999
-            dist_dict = {} #format is name: [dist, non-silent]
+            
             if name != name_other:
                 diff_genome, non_silent = compare_genome(genome, genome_other)
                 # print('clusters')
                 # print(diff_genome, non_silent)
+                print(name, name_other,diff_genome)
                 dist_dict[name_other] = [diff_genome, non_silent]
                 if diff_genome <= min_diff and diff_genome != 0:
                     min_diff = diff_genome
                     # min_nodes.append([name_other, non_silent])
-
+                # print(min_diff)
+        # print(name)
         # print(dist_dict)
         for dist_name, details in dist_dict.items():
             if details[0] == min_diff:
                 min_nodes.append([dist_name, details[1]])
         graph_map[name] = min_nodes
+
 
     #mapping for infected -> clusters
     infected_map = []

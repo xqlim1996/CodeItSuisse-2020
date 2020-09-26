@@ -21,19 +21,23 @@ def contact_trace(test_case): #input is dictionary
         if name == origin_name:
             continue
         min_nodes = []
+        print(name)
+        min_diff = 99999999
+        dist_dict = {} #format is name: [dist, non-silent]
         for name_other, genome_other in clusters.items():
-            min_diff = 99999999
-            dist_dict = {} #format is name: [dist, non-silent]
+            
             if name != name_other:
                 diff_genome, non_silent = compare_genome(genome, genome_other)
                 # print('clusters')
                 # print(diff_genome, non_silent)
+                print(name, name_other,diff_genome)
                 dist_dict[name_other] = [diff_genome, non_silent]
                 if diff_genome <= min_diff and diff_genome != 0:
                     min_diff = diff_genome
                     # min_nodes.append([name_other, non_silent])
-
-        # print(dist_dict)
+                # print(min_diff)
+        print(name)
+        print(dist_dict)
         for dist_name, details in dist_dict.items():
             if details[0] == min_diff:
                 min_nodes.append([dist_name, details[1]])
@@ -63,7 +67,7 @@ def contact_trace(test_case): #input is dictionary
     print(graph_map)
 
     paths = []
-    path_counter = len(clusters)
+    # path_counter = len(clusters)
     #worst case is go through every cluster and origin
     next_nodes = infected_map
     for node in infected_map:
@@ -72,7 +76,7 @@ def contact_trace(test_case): #input is dictionary
     temp = paths.copy()
     output = []
     # print('PATH')
-    # print('infected paths:' + str(paths))
+    print('infected paths:' + str(paths))
     while len(temp) > 0:
         # print('temp: {}'.format(temp))
         for index in range(len(paths)):
@@ -102,7 +106,7 @@ def contact_trace(test_case): #input is dictionary
                     temp.append(new_path)
                     # print('temp adding new path' + str(new_path))
         paths = temp.copy()
-        # print('paths:' + str(paths))
+        print('paths:' + str(paths))
 
     #format output
     
@@ -133,14 +137,14 @@ def compare_genome(genome1, genome2):
 
     for index in range(len(genome1)):
         if genome1[index] != genome2[index]: #check for num diff char and if first char diff
-            print('AFAS')
+            # print('AFAS')
 
             genome1_instr = list(genome1[index])
             genome2_instr = list(genome2[index])
 
             #compare num diff in instr.
             diff_instr = compare_instr(genome1_instr, genome2_instr)
-            print(diff_instr)
+            # print(diff_instr)
             diff_genome += diff_instr[0]
             first_char_diff_genome += diff_instr[1]
             # print('silent')
@@ -158,8 +162,8 @@ def compare_genome(genome1, genome2):
         #     first_char_diff_arr[1] += diff_origin[1]
                 
 def compare_instr(instr1, instr2):
-    print('instr1: ' + str(instr1))
-    print('instr2: ' + str(instr2))
+    # print('instr1: ' + str(instr1))
+    # print('instr2: ' + str(instr2))
 
     diff = 0
     first_char_diff = 0
@@ -176,27 +180,6 @@ def compare_instr(instr1, instr2):
 
     
 def main():
-#     test = {
-#     "infected": {
-#         "name":"orange",
-#         "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
-#     },
-#     "origin": {
-#         "name":"turquoise",
-#         "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
-#     },
-#     "cluster":[
-#         {
-#             "name":"blue",
-#             "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
-#         },
-#         {
-#             "name":"magenta",
-#             "genome":"aca-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
-#         }
-#     ]
-# }
-
     test = {
     "infected": {
         "name":"orange",
@@ -204,15 +187,36 @@ def main():
     },
     "origin": {
         "name":"turquoise",
-        "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
+        "genome":"acb-gcx-ura-gpa-aqu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
     },
     "cluster":[
         {
-            "name":"magenta",
+            "name":"blue",
             "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
+        },
+        {
+            "name":"magenta",
+            "genome":"aca-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
         }
     ]
 }
+
+#     test = {
+#     "infected": {
+#         "name":"plastic",
+#         "genome":"acg-gcu-uca-gca-acu-ccc-gua-acg-gcu-uca-gca-acu-cac-gaa"
+#     },
+#     "origin": {
+#         "name":"metal",
+#         "genome":"acg-acu-uca-gca-acu-ccc-gua-acg-ccu-uca-gca-acu-cac-gac"
+#     },
+#     "cluster":[
+#         {
+#             "name":"thread",
+#             "genome":"acg-acu-uca-gca-acu-ccc-gua-acg-ccu-uca-gca-acu-cac-gaa"
+#         }
+#     ]
+# }
     return(contact_trace(test))
 
 if __name__ == "__main__":
