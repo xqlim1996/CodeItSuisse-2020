@@ -7,13 +7,16 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-@app.route('/salad-spree', methods=['POST'])
+@app.route('/contact_trace', methods=['POST'])
 def evaluate():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    inputValue = data.get("input")
-    result = inputValue * inputValue
-    logging.info("My result :{}".format(result))
+    
+    data_dict = data.loads(x)
+
+
+    
+    logging.info("My result :{}".format(data_dict))
     return json.dumps(result)
 
 
