@@ -12,13 +12,12 @@ def evaluate_inventory_management():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
 
-    # results = []
-    # for test_case in data:
-    results = inventory_manangement(data)
+    results = []
+    for test_case in data: 
+        results = inventory_manangement(test_case)
     logging.info("result :{}".format(results))
 
     return json.dumps(results)
-
 
 
 
