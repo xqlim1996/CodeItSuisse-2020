@@ -1,6 +1,29 @@
+import logging
+import json
 import numpy as np
+from flask import request, jsonify;
+
+from codeitsuisse import app;
+
+logger = logging.getLogger(__name__)
+
+@app.route('/inventory-management', methods=['POST'])
+def evaluate_inventory_management():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+
+    results = []
+    for test_case in data:
+        results.append(inventory_manangement(test_case))
+    logging.info("result :{}".format(results))
+
+    return json.dumps(results)
+
+
+
 
 def inventory_manangement(test_case): #input is a dict
+    print(test_case)
     search_name = (test_case['searchItemName']).lower()
 
     items = [item.lower() for item in test_case['items']]
@@ -183,14 +206,3 @@ def printDistances(distances, token1Length, token2Length):
         for j in range(token2Length + 1):
             print((distances[i][j]), end="  ")
         print()
-
-def main():
-    test_cases = [{"searchItemName":"Samsung Aircon","items":["Smsng Auon","Amsungh Aircon","Samsunga Airon"]}]
-    # test_cases = [{"searchItemName":"kitten","items":["sitting", "pitting", 'litting']}]
-    result = []
-    for test in test_cases:
-        result.append(inventory_manangement(test))
-    return(result)
-
-if __name__ == "__main__":
-    main()
