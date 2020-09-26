@@ -1,26 +1,3 @@
-import logging
-import json
-
-from flask import request, jsonify;
-
-from codeitsuisse import app;
-
-logger = logging.getLogger(__name__)
-
-@app.route('/contact_trace', methods=['POST'])
-def evaluate():
-    data = request.get_json()
-    logging.info("data sent for evaluation {}".format(data))
-    
-    result = []
-    for test_case in data:
-        result.append(contact_trace(test_case))
-    
-
-    # logging.info("My result :{}".format(infected))
-    return json.dumps(result)
-
-
 def contact_trace(test_case): #input is dictionary
     infected_genome = test_case['infected']['genome'].split('-')
     origin_genome = test_case['origin']['genome'].split('-')
@@ -237,3 +214,6 @@ def main():
     ]
 }
     return(contact_trace(test))
+
+if __name__ == "__main__":
+    main()
