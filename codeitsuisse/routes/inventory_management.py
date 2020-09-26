@@ -12,9 +12,9 @@ def evaluate_inventory_management():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
 
-    results = []
-    for test_case in data:
-        results.append(inventory_manangement(test_case))
+    # results = []
+    # for test_case in data:
+    results = inventory_manangement(data)
     logging.info("result :{}".format(results))
 
     return json.dumps(results)
@@ -23,7 +23,7 @@ def evaluate_inventory_management():
 
 
 def inventory_manangement(test_case): #input is a dict
-    print(test_case)
+    # print(test_case)
     search_name = (test_case['searchItemName']).lower()
 
     items = [item.lower() for item in test_case['items']]
@@ -65,8 +65,8 @@ def inventory_manangement(test_case): #input is a dict
         word = i[2]
         word_concat = ''.join(word)
         output_concat.append(word_concat)
-    print(output_concat)
-    return output_concat
+    # print(output_concat)
+    return {"searchItemName": search_name,"searchResult": output_concat}
 
     # for item in output:
     #     if item[]
