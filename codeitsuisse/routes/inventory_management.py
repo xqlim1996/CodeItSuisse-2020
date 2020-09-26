@@ -180,7 +180,7 @@ def levenshteinDistanceDP(search_name, item_name):
         # print('i: {}, j: {}'.format(i,j))
 
         if elem[1] == '-':
-            print()
+            # print()
             j -= 1
             actions.append(elem[1] + search_name[j])
         elif elem[1] == '+':
