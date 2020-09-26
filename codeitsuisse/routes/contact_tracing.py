@@ -148,8 +148,6 @@ def compare_genome(genome1, genome2):
 
                 
 def compare_instr(instr1, instr2):
-    print('instr1: ' + str(instr1))
-    print('instr2: ' + str(instr2))
 
     diff = 0
     first_char_diff = 0
