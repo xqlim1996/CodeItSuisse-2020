@@ -12,9 +12,9 @@ def evaluate():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     
-    result = []
-    for test_case in data:
-        result.append(contact_trace(test_case))
+    result = contact_trace(data)
+    # for test_case in data:
+    #     result.append(contact_trace(test_case))
     
 
     # logging.info("My result :{}".format(infected))
