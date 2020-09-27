@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 @app.route('/pre-tick', methods=['POST'])
 def evaluate_pretick():
-    data = request.datas
+    data = request.data
     # data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
     # inputValue = data.get("input");
