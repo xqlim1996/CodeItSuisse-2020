@@ -23,13 +23,14 @@ def main():
         for elem in elems:
             elems_formatted.append(float(elem))
         data_formatted.append(elems_formatted)
+    print(data_formatted[-1][-1])
  
-    data_formatted = np.array(data_formatted)
+    # data_formatted = np.array(data_formatted)
     # print(data_formatted)
-    print(col_names)
-    df = pd.DataFrame(data_formatted, columns = col_names)
+    # print(col_names)
+    # df = pd.DataFrame(data_formatted, columns = col_names)
 
-    pretick(df)
+    # pretick(df)
 
 if __name__ == "__main__":
     main()
