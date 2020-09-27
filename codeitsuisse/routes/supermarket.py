@@ -1,4 +1,24 @@
-from collections import deque 
+import logging
+import json
+
+from flask import request, jsonify;
+
+from codeitsuisse import app;
+
+logger = logging.getLogger(__name__)
+
+@app.route('/supermarket', methods=['POST'])
+def evaluate_supermarket():
+    data = request.get_json()
+    logging.info("data sent for evaluation {}".format(data))
+    test = data.get("tests")
+    result = {}
+    result["answers"] = {}
+    for key,value in test.items():
+        result["answers"][key] = supermarket(value)
+    logging.info("My result :{}".format(result))
+    return json.dumps(result)
+
 
 def supermarket(test_case):
 
@@ -26,7 +46,7 @@ def supermarket(test_case):
         [curr_row, curr_col, counter] = queue.pop()
         visited[curr_row][curr_col] = True
         
-        print('curr_row, curr_col: {}'.format([curr_row, curr_col, counter]))
+        # print('curr_row, curr_col: {}'.format([curr_row, curr_col, counter]))
         
         if counter >= len(maze) * len(maze[0]):
             break
@@ -35,7 +55,7 @@ def supermarket(test_case):
             continue
 
         if [curr_row, curr_col] == [end_row, end_col]:
-            print('end: count: {}'.format(counter))
+            # print('end: count: {}'.format(counter))
             return counter
 
         
@@ -54,35 +74,17 @@ def supermarket(test_case):
             if row < 0 or row > len(maze) or col < 0 or col > len(maze[0]):
                 continue
             
-            print('direction: {}, {}, {}'.format([row,col], maze[row][col], visited[row][row]))
+            # print('direction: {}, {}, {}'.format([row,col], maze[row][col], visited[row][row]))
             
             if maze[row][col] == 0 and visited[row][col] == False:
-                print('appending: {},{}'.format(row, col))
+                # print('appending: {},{}'.format(row, col))
                 queue.append([row, col, counter+1])
                 visited[row][col] = True
         counter += 1
-        print(queue)
+        # print(queue)
+
+    return -1
 
         
-        
-    
 
-def main():
-    test_case = {
-        'maze' : [[1, 1, 1, 0, 1, 1, 1],
-                 [1, 0, 1, 0, 0, 0, 1],
-                 [1, 0, 0, 0, 1, 0, 1],
-                 [1, 1, 0, 1, 1, 1, 1],
-                 [1, 0, 0, 0, 0, 1, 1],
-                 [1, 1, 1, 1, 0, 1, 1]],
-        'start' : [3,0],
-        'end' : [4,5]   
-    }
 
-    print(supermarket(test_case))
-
-        
-    
-
-if __name__ == "__main__":
-    main()
